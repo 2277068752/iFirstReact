@@ -3,6 +3,7 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = require('../config/index')
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
   output: {
@@ -20,14 +21,15 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-    port: '8080',
+    host: config.dev.host,
+    port: config.dev.port,
     contentBase: path.join(__dirname, '../public'),
     compress: true,
     historyApiFallback: true,
     hot: true,
     https: false,
     noInfo: true,
-    open: true,
+    open: config.dev.autoOpenBrowser,
     proxy: {}
   }
 })
